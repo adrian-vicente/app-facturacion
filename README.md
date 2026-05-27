@@ -1,1 +1,2 @@
-"Creaci¢n fichero README.md" 
+\# APP: Gestión Facturación Personal
+
