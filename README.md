@@ -1,6 +1,6 @@
 # 💰 Personal Finance Manager
 
-> Aplicación web para la gestión de finanzas personales desarrollada con Angular y Spring Boot.
+> Aplicación web híbrida para la gestión de finanzas personales desarrollada con Angular v21 y Spring Boot.
 
 Controla tus ingresos, gastos, presupuestos, objetivos de ahorro y recibos desde una única plataforma intuitiva y moderna.
 
@@ -118,100 +118,6 @@ Asocia documentos a cada movimiento:
 La aplicación utiliza autenticación basada en JWT.
 
 Las operaciones se realizan sobre el usuario autenticado sin necesidad de exponer identificadores en el frontend.
-
----
-
-## 🏗️ Arquitectura
-
-```text
-Angular
-   │
-   ▼
-REST API
-   │
-   ▼
-Spring Boot
-   │
-   ▼
-MySQL
-```
-
----
-
-## 📂 Modelo de datos
-
-### Usuario
-
-```java
-id
-nombre
-email
-password
-```
-
-### Movimiento
-
-```java
-id
-concepto
-descripcion
-importe
-fecha
-tipoMovimiento
-```
-
-### Categoría
-
-```java
-id
-nombre
-descripcion
-```
-
-### ObjetivoAhorro
-
-```java
-id
-nombre
-objetivo
-ahorrado
-```
-
-### Presupuesto
-
-```java
-id
-limite
-mes
-```
-
-### Recibo
-
-```java
-id
-nombreArchivo
-rutaArchivo
-```
-
----
-
-## 📸 Capturas
-
-### Login
-
-![Login](docs/login.png)
-
-### Dashboard
-
-![Dashboard](docs/dashboard.png)
-
-### Movimientos
-
-![Movimientos](docs/movimientos.png)
-
-### Estadísticas
-
-![Estadísticas](docs/estadisticas.png)
 
 ---
 
