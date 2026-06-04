@@ -1,9 +1,12 @@
 package com.gestion.facturacion.backend.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +29,13 @@ public class Categoria {
     
     private String nombre;
     private String descripcion;
+
+    // Declaración de atributos para las relaciones 
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Movimiento> movimientos;
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Presupuesto> presupuestos;
 
 } // class

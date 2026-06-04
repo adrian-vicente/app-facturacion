@@ -1,9 +1,12 @@
 package com.gestion.facturacion.backend.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,5 +30,16 @@ public class Usuario {
     private String nombre;
     private String password;
     private String email;
+
+    // Declaración de atributos para las relaciones 
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Movimiento> movimientos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Presupuesto> presupuestos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<ObjetivoAhorro> objetivoAhorros;
 
 } // class
