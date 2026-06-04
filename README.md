@@ -39,7 +39,7 @@ Controla tus ingresos, gastos, presupuestos, objetivos de ahorro y recibos desde
 * ApexCharts
 * Font Awesome
 
-### Backend
+### Dependencias del backend
 
 * Spring Boot
 * Spring Security
@@ -47,13 +47,6 @@ Controla tus ingresos, gastos, presupuestos, objetivos de ahorro y recibos desde
 * Spring Data JPA
 * Hibernate
 * MySQL
-
-### Herramientas
-
-* Git
-* GitHub
-* Maven
-* Postman
 
 ---
 
@@ -160,4 +153,4 @@ ng serve
 
 ## 👨‍💻 Autor
 
-Desarrollado por Adrián como proyecto personal para practicar arquitectura Full Stack con Angular y Spring Boot.
+Desarrollado por Adrián Vicente Vera cómo proyecto personal.
