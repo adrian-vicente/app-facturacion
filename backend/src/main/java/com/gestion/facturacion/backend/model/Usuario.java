@@ -31,15 +31,4 @@ public class Usuario {
     private String password;
     private String email;
 
-    // Declaración de atributos para las relaciones 
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Movimiento> movimientos;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Presupuesto> presupuestos;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<ObjetivoAhorro> objetivoAhorros;
-
 } // class
