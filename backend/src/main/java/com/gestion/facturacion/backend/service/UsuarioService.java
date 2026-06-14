@@ -1,5 +1,6 @@
 package com.gestion.facturacion.backend.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gestion.facturacion.backend.config.ValidatorConfig;
@@ -13,8 +14,11 @@ public class UsuarioService {
     // Inyección de dependencias 
 
     private final UsuarioRepository usuarioRepository;
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
 
     }
 
@@ -29,6 +33,8 @@ public class UsuarioService {
         } // if
 
         usuario.setNombre(usuarioDTO.getNombre());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
 
         // Devolver el usuario con datos aplicados
 
@@ -37,5 +43,20 @@ public class UsuarioService {
     }
 
     // Método de conversión: ENTITY ==> DTO
+
+    public UsuarioDTO toDTO(Usuario usuario) {
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+        if ( ValidatorConfig.validarIdentificador(usuario.getId()) ) {
+            usuarioDTO.setId(usuario.getId());
+
+        } // if
+
+        usuarioDTO.setNombre(usuario.getNombre());
+        usuarioDTO.setEmail(usuario.getEmail());
+
+        return usuarioDTO;
+
+    }
 
 } // class
