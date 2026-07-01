@@ -59,4 +59,26 @@ public class UsuarioService {
 
     }
 
+    // Método para crear un nuevo usuario
+
+    // Método para obtener un usuario a partir del identificador
+
+    // Método para obtener un usuario a partir de un token 
+
+    // Método para obtener todos los usuarios 
+
+    // Método para actualizar un usuario 
+
+    // Método para eliminar un usuario por el identificador 
+
+    // Método para cambiar el estado del usuario 
+
+    // Método para comprobar si existe un usuario por correo 
+
+    // Método para saber si existe un usuario a partir de un username 
+
+    // Método para cambiar la password de un usuario 
+
+    // Método para actualizar la foto de perfil del usuario
+
 } // class
