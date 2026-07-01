@@ -2,6 +2,17 @@ package com.gestion.facturacion.backend.dto;
 
 import java.time.YearMonth;
 
+import org.hibernate.validator.constraints.pl.NIP;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class PresupuestoDTO {
 
     // Declaración de atributos 
