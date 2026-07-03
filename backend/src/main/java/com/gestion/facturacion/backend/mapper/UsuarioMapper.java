@@ -15,11 +15,9 @@ public class UsuarioMapper {
 
     public Usuario toEntity(CrearUsuarioDTO dto) {
         Usuario usuario = new Usuario();
-            usuario.setNombre(dto.getNombre());
-            usuario.setEmail(dto.getEmail());
-            usuario.setPassword(dto.getPassword());
-
-        // Devolver el dto
+        usuario.setNombre(dto.getNombre());
+        usuario.setEmail(dto.getEmail());
+        usuario.setPassword(dto.getPassword());
 
         return usuario;
 

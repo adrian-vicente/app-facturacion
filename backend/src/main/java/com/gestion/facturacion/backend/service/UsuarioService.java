@@ -15,6 +15,8 @@ import com.gestion.facturacion.backend.mapper.UsuarioMapper;
 import com.gestion.facturacion.backend.model.Usuario;
 import com.gestion.facturacion.backend.repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UsuarioService {
 
@@ -33,7 +35,8 @@ public class UsuarioService {
 
     // Método para crear un nuevo usuario
 
-    public Long crearUsuario(CrearUsuarioDTO crearUsuarioDTO) throws Exception {
+    @Transactional
+    public UsuarioDTO crearUsuario(CrearUsuarioDTO crearUsuarioDTO) throws Exception {
     
         // Validaciones y comprobaciones
 
@@ -52,21 +55,24 @@ public class UsuarioService {
         if(usuarioRepository.existsByEmail(crearUsuarioDTO.getEmail())) {
             throw new EmailAlreadyExistsException("Ya existe un usuario con email: " + crearUsuarioDTO.getEmail());
         }
-
-        // Cifrar la password
-
+        
         crearUsuarioDTO.setPassword( passwordEncoder.encode(crearUsuarioDTO.getPassword()) );
 
-        // Asignación de roles
-
-        // Return id usuario
-
         Usuario usuarioCreado = usuarioRepository.save(usuarioMapper.toEntity(crearUsuarioDTO));
-        return usuarioCreado.getId();
+        return usuarioMapper.toDTO(usuarioCreado);
 
     }
 
-    // Método para obtener un usuario a partir del identificador
+    // Obtener usuario a partir de id
+
+    @Transactional
+    public UsuarioDTO getUsuarioById(Long id) throws UsuarioNotFoundException {
+        Usuario usuario = usuarioRepository.findById(id)
+            .orElseThrow(() -> new UsuarioNotFoundException("No se ha encontrado a ningún usuario con id: " + id));
+
+        return usuarioMapper.toDTO(usuario);
+
+    }
 
     // Método para obtener un usuario a partir de un token 
 
