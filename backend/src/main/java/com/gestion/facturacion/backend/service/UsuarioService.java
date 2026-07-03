@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 import com.gestion.facturacion.backend.config.ValidatorConfig;
 import com.gestion.facturacion.backend.dto.Usuario.CrearUsuarioDTO;
 import com.gestion.facturacion.backend.dto.Usuario.UsuarioDTO;
+import com.gestion.facturacion.backend.exception.EmailAlreadyExistsException;
+import com.gestion.facturacion.backend.exception.UsuarioAlreadyExistsException;
 import com.gestion.facturacion.backend.exception.UsuarioEmptyException;
 import com.gestion.facturacion.backend.exception.UsuarioFieldsNoCompletedException;
+import com.gestion.facturacion.backend.exception.UsuarioNotFoundException;
 import com.gestion.facturacion.backend.mapper.UsuarioMapper;
 import com.gestion.facturacion.backend.model.Usuario;
 import com.gestion.facturacion.backend.repository.UsuarioRepository;
@@ -32,29 +35,34 @@ public class UsuarioService {
 
     public Long crearUsuario(CrearUsuarioDTO crearUsuarioDTO) throws Exception {
     
-        // Validar que el usuario pasado por parámetro no es nulo
+        // Validaciones y comprobaciones
 
-        if(!ValidatorConfig.validarObjeto(crearUsuarioDTO)) throw new UsuarioEmptyException("No se puede crear el usuario, no tiene datos asociados.");
+        if(!ValidatorConfig.validarObjeto(crearUsuarioDTO)) {
+            throw new UsuarioEmptyException("No se puede crear el usuario, no tiene datos asociados.");
+        }
 
-        // Validar que tenga los campos rellenados (Solo el correo, el resto de campos se validan en el DTO)
+        if(!(crearUsuarioDTO.getEmail().length() >= 1)) {
+            throw new UsuarioFieldsNoCompletedException("El email del usuario no está rellenado, rellénalo para poder crear el usuario.");
+        }
 
-        if(!(crearUsuarioDTO.getEmail().length() >= 1)) throw new UsuarioFieldsNoCompletedException("El email del usuario no está rellenado, rellénalo para poder crear el usuario.");
+        if(usuarioRepository.existsByNombre(crearUsuarioDTO.getNombre())) {
+            throw new UsuarioAlreadyExistsException("Ya existe un usuario con nombre: " + crearUsuarioDTO.getNombre());
+        }
 
-        // Validar la longitud y complejidad de la password 
+        if(usuarioRepository.existsByEmail(crearUsuarioDTO.getEmail())) {
+            throw new EmailAlreadyExistsException("Ya existe un usuario con email: " + crearUsuarioDTO.getEmail());
+        }
 
-        // Validar que no exista el nombre de usuario previamente 
+        // Cifrar la password
 
-        // Normalizar los datos para evitar errores al guardarlo en la base de datos 
+        crearUsuarioDTO.setPassword( passwordEncoder.encode(crearUsuarioDTO.getPassword()) );
 
-        // Comprobar que el email no esté registrado previamente 
+        // Asignación de roles
 
-        // Cifrar la password antes de guardarla en la base de datos 
+        // Return id usuario
 
-        // Asignar valores / roles por defecto del usuario 
-
-        // Devolver el identificador del usuario creado o el token en función del sistema implementado
-
-        return 0L;
+        Usuario usuarioCreado = usuarioRepository.save(usuarioMapper.toEntity(crearUsuarioDTO));
+        return usuarioCreado.getId();
 
     }
 

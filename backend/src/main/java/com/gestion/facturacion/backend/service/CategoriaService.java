@@ -3,7 +3,7 @@ package com.gestion.facturacion.backend.service;
 import org.springframework.stereotype.Service;
 
 import com.gestion.facturacion.backend.config.ValidatorConfig;
-import com.gestion.facturacion.backend.dto.CategoriaDTO;
+import com.gestion.facturacion.backend.dto.Categoria.CategoriaDTO;
 import com.gestion.facturacion.backend.model.Categoria;
 import com.gestion.facturacion.backend.repository.CategoriaRepository;
 

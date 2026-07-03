@@ -3,7 +3,7 @@ package com.gestion.facturacion.backend.service;
 import org.springframework.stereotype.Service;
 
 import com.gestion.facturacion.backend.config.ValidatorConfig;
-import com.gestion.facturacion.backend.dto.PresupuestoDTO;
+import com.gestion.facturacion.backend.dto.Presupuesto.PresupuestoDTO;
 import com.gestion.facturacion.backend.exception.CategoriaNotFoundException;
 import com.gestion.facturacion.backend.exception.UsuarioNotFoundException;
 import com.gestion.facturacion.backend.model.Categoria;

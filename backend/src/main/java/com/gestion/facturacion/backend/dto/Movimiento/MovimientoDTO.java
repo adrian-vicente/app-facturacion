@@ -1,4 +1,4 @@
-package com.gestion.facturacion.backend.dto;
+package com.gestion.facturacion.backend.dto.Movimiento;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -47,4 +47,23 @@ public class GlobalExceptionHandler {
             .body(ex.getMessage());
     }
 
+    // Excepción cuándo el nombre de usuario ya existe en la base de datos 
+
+    @ExceptionHandler(UsuarioAlreadyExistsException.class)
+    public ResponseEntity<String> usuarioAlreadyExists(UsuarioAlreadyExistsException ex) {
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
+            .body(ex.getMessage());
+            
+    }
+
+    // Excepción cuándo existe email
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<String> emailAlreadyExists(EmailAlreadyExistsException ex) {
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
+            .body(ex.getMessage());
+    }
+
 }

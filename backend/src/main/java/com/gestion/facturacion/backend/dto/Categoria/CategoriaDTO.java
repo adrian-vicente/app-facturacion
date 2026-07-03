@@ -1,4 +1,4 @@
-package com.gestion.facturacion.backend.dto;
+package com.gestion.facturacion.backend.dto.Categoria;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
