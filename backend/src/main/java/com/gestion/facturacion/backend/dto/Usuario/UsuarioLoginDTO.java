@@ -12,20 +12,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CrearUsuarioDTO {
+public class UsuarioLoginDTO {
 
     // Declaración de atributos 
 
-    @NotBlank(message = "El usuario debe tener un nombre asociado")
+    @NotBlank(message = "El usuario debe tener un nombre asociado.")
     @Size(min = 5, max = 100, message = "El nombre de usuario debe tener entre 5 y 100 carácteres")
     private String nombre;
 
     @NotBlank(message = "El usuario debe tener un email asociado.")
-    @Email(message = "El email no tiene el formato correcto")
+    @Email(message = "El email no tiene formato correcto")
     private String email;
 
-    @NotBlank(message = "El usuario debe tener una password asociada.")
-    @Size(min = 5, max = 255, message = "La password debe tener entre 5 y 255 carácteres.")
+    @NotBlank(message = "El usuario debe tener una password asociada")
+    @Size(min = 5, max = 255, message = "La password debe tener entre 5 y 255 carácteres")
     private String password;
 
 } // class

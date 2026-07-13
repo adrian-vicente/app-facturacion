@@ -5,8 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.gestion.facturacion.backend.config.ValidatorConfig;
 import com.gestion.facturacion.backend.dto.Usuario.CrearUsuarioDTO;
+import com.gestion.facturacion.backend.dto.Usuario.LoginResponseDTO;
 import com.gestion.facturacion.backend.dto.Usuario.UsuarioDTO;
+import com.gestion.facturacion.backend.dto.Usuario.UsuarioLoginDTO;
 import com.gestion.facturacion.backend.exception.EmailAlreadyExistsException;
+import com.gestion.facturacion.backend.exception.PasswordNotMatchException;
 import com.gestion.facturacion.backend.exception.UsuarioAlreadyExistsException;
 import com.gestion.facturacion.backend.exception.UsuarioEmptyException;
 import com.gestion.facturacion.backend.exception.UsuarioFieldsNoCompletedException;
@@ -14,6 +17,7 @@ import com.gestion.facturacion.backend.exception.UsuarioNotFoundException;
 import com.gestion.facturacion.backend.mapper.UsuarioMapper;
 import com.gestion.facturacion.backend.model.Usuario;
 import com.gestion.facturacion.backend.repository.UsuarioRepository;
+import com.gestion.facturacion.backend.security.JwtService;
 
 import jakarta.transaction.Transactional;
 
@@ -25,11 +29,13 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, UsuarioMapper usuarioMapper) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, UsuarioMapper usuarioMapper, JwtService jwtService) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
 
     }
 
@@ -63,6 +69,20 @@ public class UsuarioService {
 
     }
 
+    // Método para iniciar sesión
+
+    public LoginResponseDTO iniciarSesion(UsuarioLoginDTO usuarioLoginDTO) throws Exception {
+        Usuario usuario = usuarioRepository.findByEmail(usuarioLoginDTO.getEmail())
+            .orElseThrow(() -> new UsuarioNotFoundException("No se ha encontrado ningún usuario con email: " + usuarioLoginDTO.getEmail()));
+
+        if(!passwordEncoder.matches(usuarioLoginDTO.getPassword(), usuario.getPassword())) {
+            throw new PasswordNotMatchException("La contraseña introducida es inválida.");
+        }
+
+        return new LoginResponseDTO(jwtService.generarToken(usuario), usuarioMapper.toDTO(usuario));
+
+    }
+
     // Obtener usuario a partir de id
 
     @Transactional
@@ -83,8 +103,6 @@ public class UsuarioService {
     // Método para eliminar un usuario por el identificador 
 
     // Método para cambiar el estado del usuario 
-
-    // Método para comprobar si existe un usuario por correo 
 
     // Método para saber si existe un usuario a partir de un username 
 

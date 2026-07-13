@@ -66,4 +66,13 @@ public class GlobalExceptionHandler {
             .body(ex.getMessage());
     }
 
+    // Excepción cuándo la password no coincide 
+
+    @ExceptionHandler(PasswordNotMatchException.class)
+    public ResponseEntity<String> passwordNotMatch(PasswordNotMatchException ex) {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ex.getMessage());
+    }
+
 }
