@@ -6,32 +6,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gestion.facturacion.backend.dto.Usuario.CrearUsuarioDTO;
 import com.gestion.facturacion.backend.dto.Usuario.LoginResponseDTO;
-import com.gestion.facturacion.backend.dto.Usuario.UsuarioDTO;
 import com.gestion.facturacion.backend.dto.Usuario.UsuarioLoginDTO;
 import com.gestion.facturacion.backend.service.UsuarioService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/usuarios")
-public class UsuarioRestController {
+@RequestMapping("/auth")
+public class AuthController {
 
-    // Inyección de dependencias 
+    // Inyección de dependencias
 
     private final UsuarioService usuarioService;
-    public UsuarioRestController(UsuarioService usuarioService) {
+    public AuthController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
-    // Método para la creación de un nuevo usuario 
+    // Método para iniciar sesión 
 
-    @PostMapping("/crear")
-    public ResponseEntity<UsuarioDTO> crearUsuario(@RequestBody @Valid CrearUsuarioDTO usuarioDTO) throws Exception {
-        UsuarioDTO usuario = usuarioService.crearUsuario(usuarioDTO);
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> iniciarSesion(@RequestBody @Valid UsuarioLoginDTO usuarioLoginDTO) throws Exception {
+        LoginResponseDTO loginResponseDTO = usuarioService.iniciarSesion(usuarioLoginDTO);
         return ResponseEntity
-            .ok(usuario);
+            .ok(loginResponseDTO);
 
     }
 
